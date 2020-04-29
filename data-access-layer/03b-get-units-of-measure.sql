@@ -13,3 +13,6 @@
 
 
 -- YOUR CODE HERE
+select id, name
+from units_of_measure
+ORDER BY id asc;

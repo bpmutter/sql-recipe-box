@@ -8,10 +8,8 @@
 -- user.
 
 -- YOUR CODE HERE
-
-
-
-
+-- GRANT CONNECT ON DATABASE hr_data TO ada;
+SET ROLE recipe_box_app; 
 
 
 -- Create a table for the "recipes". It will need the following columns in it.
@@ -25,10 +23,12 @@
 -- | updated     | TIMESTAMP    | NOT NULL, DEFAULT CURRENT_TIMESTAMP |
 
 -- YOUR CODE HERE
-
-
-
-
+CREATE TABLE recipes (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 
 -- Create a table for the "instructions". It will need the following columns in
@@ -48,7 +48,13 @@
 
 -- YOUR CODE HERE
 
-
+CREATE TABLE instructions(
+    id SERIAL PRIMARY KEY,
+    specification TEXT NOT NULL,
+    list_order INTEGER NOT NULL,
+    recipe_id INTEGER NOT NULL,
+    FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+);
 
 
 
@@ -63,7 +69,10 @@
 -- | name        | VARCHAR(20) | NOT NULL    |
 
 -- YOUR CODE HERE
-
+CREATE TABLE units_of_measure(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(20) NOT NULL
+);
 
 
 
@@ -87,7 +96,15 @@
 
 -- YOUR CODE HERE
 
-
+CREATE TABLE ingredients(
+    id SERIAL PRIMARY KEY,
+    amount NUMERIC(5,2) NOT NULL,
+    unit_of_measure_id INTEGER NOT NULL,
+    food_Stuff VARCHAR(500) NOT NULL,
+    recipe_id INTEGER NOT NULL,
+    FOREIGN KEY(unit_of_measure_id) REFERENCES units_of_measure(id),
+    FOREIGN KEY(recipe_id) REFERENCES recipes(id)
+);
 
 
 

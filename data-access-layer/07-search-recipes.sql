@@ -23,3 +23,7 @@
 
 
 -- YOUR CODE HERE
+select id, title, updated
+from recipes
+where lower(title) LIKE ('%' || lower($1) || '%');
+
